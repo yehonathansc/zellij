@@ -133,6 +133,7 @@ pub fn run(sh: &Shell, mut flags: flags::Run) -> anyhow::Result<()> {
             .and_then(|cargo| {
                 cmd!(sh, "{cargo} run")
                     .args(["--package", "zellij"])
+                    .args(["--bin", "zellij"])
                     .arg("--no-default-features")
                     .args(["--features", features])
                     .args(["--profile", profile])
@@ -161,7 +162,8 @@ pub fn run(sh: &Shell, mut flags: flags::Run) -> anyhow::Result<()> {
                     .context("Failed to check web features for main crate")?
                 {
                     Some(features) => {
-                        let mut cmd = cmd!(sh, "{cargo} run").args(["--no-default-features"]);
+                        let mut cmd = cmd!(sh, "{cargo} run")
+                            .args(["--bin", "zellij", "--no-default-features"]);
 
                         if !features.is_empty() {
                             cmd = cmd.args(["--features", &features]);
@@ -176,6 +178,7 @@ pub fn run(sh: &Shell, mut flags: flags::Run) -> anyhow::Result<()> {
                     None => {
                         // Main crate doesn't have web_server_capability, run normally
                         cmd!(sh, "{cargo} run")
+                            .args(["--bin", "zellij"])
                             .args(["--profile", profile])
                             .args(["--"])
                             .args(&flags.args)
@@ -185,6 +188,7 @@ pub fn run(sh: &Shell, mut flags: flags::Run) -> anyhow::Result<()> {
                 }
             } else {
                 cmd!(sh, "{cargo} run")
+                    .args(["--bin", "zellij"])
                     .args(["--profile", profile])
                     .args(["--"])
                     .args(&flags.args)

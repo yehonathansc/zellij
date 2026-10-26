@@ -3,6 +3,7 @@ use ansi_term::{
     Color::{Fixed, RGB},
     Style,
 };
+use zellij_tile::shim::plugin_api::generated_api::api::key::key::Char::B;
 use std::collections::HashMap;
 use zellij_tile::prelude::actions::Action;
 use zellij_tile::prelude::*;
@@ -1524,8 +1525,9 @@ fn get_keys_and_hints(mi: &ModeInfo) -> Vec<(String, String, Vec<KeyWithModifier
             single_action_key(&km, &[A::ToggleFloatingPanes, TO_NORMAL])),
         (s("Toggle Embed"), s("Embed"), single_action_key(&km, &[A::TogglePaneEmbedOrFloating, TO_NORMAL])),
         (s("Split Right"), s("Right"), single_action_key(&km, &[A::NewPane{direction: Some(Direction::Right), pane_name: None, start_suppressed: false}, TO_NORMAL])),
-        (s("Split Down"), s("Down"), single_action_key(&km, &[A::NewPane{direction: Some(Direction::Down), pane_name: None, start_suppressed: false}, TO_NORMAL])),
+        (s("Split Down"), s("Down"), vec![KeyWithModifier::new(BareKey::Char('d'))]),
         (s("Stack"), s("Stack"), single_action_key(&km, &[A::NewStackedPane{command: None, pane_name: None, near_current_pane: false, no_focus: false, tab_id: None}, TO_NORMAL])),
+        (s("Quadruple Pane"), s("Quad"), vec![KeyWithModifier::new(BareKey::Char('+'))]),
         (s("Select pane"), s("Select"), to_basemode_key),
     ]} else if mi.mode == IM::Tab {
         let old_keymap = mi.get_mode_keybinds();

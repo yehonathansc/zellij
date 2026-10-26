@@ -50,6 +50,7 @@ keybinds {
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
         bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
         bind "i" { TogglePanePinned; SwitchToMode "Normal"; }
+        bind "=" "+" { NewPane "Down"; NewPane "Right"; MoveFocus "Up"; NewPane "Right"; MoveFocus "Left"; SwitchToMode "Normal"; }
     }
     move {
         bind "{primary} h" { SwitchToMode "Normal"; }
